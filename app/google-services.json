@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "271483166694",
+    "project_id": "full-ride-59aee",
+    "storage_bucket": "full-ride-59aee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271483166694:android:cd56cc34421d41261c8027",
+        "android_client_info": {
+          "package_name": "com.estela.fullride"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271483166694-l39a5k075diukujoblj8ahpushi0tc1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzqtDwREJ6XNFO4dzYev_xm3Ax1rZ4Y7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271483166694-l39a5k075diukujoblj8ahpushi0tc1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
