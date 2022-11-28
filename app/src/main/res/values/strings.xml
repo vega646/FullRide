@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Full Ride</string>
-    <string name="API_KEY">AIzaSyCGOko6H7t4YePSSLHJC9SyxIT8nDM_xsw</string>
+    <string name="API_KEY">AIzaSyAUklP2LEgUgNSf6S1AlWjq_JBqKxA4MsQ</string>
     <string name="Logout">Log Out</string>
     <string name="Sign_Google">Sign in with Google</string>
     <string name="forgot_pass">Forgot password</string>

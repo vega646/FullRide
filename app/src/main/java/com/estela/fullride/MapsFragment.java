@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsFragment extends Fragment {
 
     private ActivityMapsBinding binding;
+    private GoogleMap map;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -34,9 +35,10 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            map = googleMap;
             LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+            map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         }
     };
 

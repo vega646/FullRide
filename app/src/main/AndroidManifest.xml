@@ -36,7 +36,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY" />
+            android:value="AIzaSyAUklP2LEgUgNSf6S1AlWjq_JBqKxA4MsQ" />
 
         <activity
             android:name=".Barclass"
