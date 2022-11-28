@@ -132,7 +132,7 @@ public class Register_User extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
 
-                        User_information users = new User_information(_FirstName, _LastName,  _Email, _Password," ", _Major);
+                        User_information users = new User_information(_FirstName, _LastName,  _Email, _Password, _Major);
                         _database.getReference("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
                                         .getUid()).setValue(users)
                                 .addOnCompleteListener

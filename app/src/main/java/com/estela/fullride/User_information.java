@@ -6,7 +6,7 @@ public class User_information {
     public String _lastname;
     public String _email;
     public String _password;
-    public String _uri;
+
     public String _major;
 
     public String getMajor() {
@@ -54,21 +54,13 @@ public class User_information {
 
 
 
-    public String get_uri() {
-        return _uri;
-    }
 
-    public void set_uri(String _uri) {
-        this._uri = _uri;
-    }
-
-    public User_information(String _Firstname, String _Lastname, String _Email, String _Password, String Uri, String Major) {
+    public User_information(String _Firstname, String _Lastname, String _Email, String _Password, String Major) {
 
         _firstname = _Firstname;
         _lastname = _Lastname;
         _email = _Email;
         _password = _Password;
-        _uri = Uri;
         _major = Major;
     }
 }

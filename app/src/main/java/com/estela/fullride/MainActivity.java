@@ -1,9 +1,13 @@
 package com.estela.fullride;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +20,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -26,14 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    //@Override
-    //protected void onCreate(Bundle savedInstanceState) {
-      //  super.onCreate(savedInstanceState);
-        //setContentView(R.layout.loginpage);
-        //getSupportActionBar().hide();
-    //}
-
+    private BottomNavigationView v;
 
     //google
     int REQUEST_CODE = 123456;
@@ -85,7 +85,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, _google_Signin_Option);
 
-
+        _authent.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInAnonymously:success");
+                            FirebaseUser user = _authent.getCurrentUser();
+                            UI_Update();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInAnonymously:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            UI_Update();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -149,12 +166,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 if (_userdata.isEmailVerified()) {
 
-                    startActivity(new Intent(MainActivity.this, Map.class));
+                    startActivity(new Intent(MainActivity.this, Barclass.class));
 
                 }   if (!_userdata.isEmailVerified())  {
 //                    _userdata.sendEmailVerification();
 //                    Toast.makeText(MainActivity.this, "Check your email for verification", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(MainActivity.this, Map.class));
+                    startActivity(new Intent(MainActivity.this, Barclass.class));
                 }
 
             } else {
@@ -200,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (task.isSuccessful()) {
 
                         UI_Update();
-                        User_information data = new User_information(_authent.getCurrentUser().getDisplayName()," ", _authent.getCurrentUser().getEmail(),""," ");
+                        User_information data = new User_information(_authent.getCurrentUser().getDisplayName()," ", _authent.getCurrentUser().getEmail(),"","");
                         _database.getReference("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
                                 .getUid()).setValue(data);
                     }
@@ -212,10 +229,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void UI_Update() {
 
 
-        Intent intent_ = new Intent(MainActivity.this, Map.class);
+        Intent intent_ = new Intent(MainActivity.this, Barclass.class);
         startActivity(intent_);
         MainActivity.this.finish();
         Toast.makeText(this, "Welcome back "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+
 
 
     }
@@ -223,8 +241,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onStart() {
 
+        _userdata = _authent.getCurrentUser();
         if (_userdata != null) {
-            Intent intent_ = new Intent(MainActivity.this, Map.class);
+            Intent intent_ = new Intent(MainActivity.this, Barclass.class);
             startActivity(intent_);
             this.finish();
         }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +27,16 @@ public class Profile extends Fragment  {
 //
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 //
 //    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
+    private String mParam1;
+    private String mParam2;
 //
-//    public Profile() {
-//        // Required empty public constructor
-//    }
+    public Profile() {
+        // Required empty public constructor
+    }
 //
 //    /**
 //     * Use this factory method to create a new instance of
@@ -71,11 +72,12 @@ public class Profile extends Fragment  {
 //        return inflater.inflate(R.layout.fragment_profile, container, false);
 //    }
 
-    private TextView  major;
+    private TextView  major, name;
 
-    public Profile(){
-        // require a empty public constructor
-    }
+//    public Profile(){
+//        // require a empty public constructor
+//    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,16 +85,16 @@ public class Profile extends Fragment  {
         return inflater.inflate(R.layout.fragment_profile, container, false);
 
 
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //        String userID = user.getUid();
 //
 //
 //        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                Display.setText(snapshot.child(userID).child("_displayName").getValue(String.class));
-//                FullName.setText(snapshot.child(userID).child("_firstname").getValue(String.class) + " " + snapshot.child(userID).child("_lastname").getValue(String.class));
-//                DOB.setText(snapshot.child(userID).child("_dob").getValue(String.class));
+//                major.setText(snapshot.child(userID).child("_major").getValue(String.class));
+//                name.setText(snapshot.child(userID).child("_firstname").getValue(String.class) + " " + snapshot.child(userID).child("_lastname").getValue(String.class));
+//
 //            }
 //
 //            @Override
