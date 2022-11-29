@@ -19,4 +19,19 @@
     <string name="Major">FS Degree</string>
     <string name="monthly">Monthly Schedule</string>
     <string name="route">Aproximate route to Full Sail</string>
+    <string name="add">Add Route</string>
+    <string name="sch">Add Schedule</string>
+    <string name="select">"Modify Monthly Schedule "</string>
+    <string name="sel">Modify Monthly Schedule</string>
+    <string name="mon">Monday</string>
+    <string name="tus">Tuesday</string>
+    <string name="wed">Wednesday</string>
+    <string name="thu">Thursday</string>
+    <string name="fri">Friday</string>
+    <string name="sat">Saturday</string>
+    <string name="sun">Sunday</string>
+    <string name="to">to</string>
+    <string name="tus2">Tuesday</string>
+    <string name="wed2">Wednesday</string>
+    <string name="thu2">Thursday</string>
 </resources>

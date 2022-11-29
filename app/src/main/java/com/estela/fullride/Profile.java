@@ -2,21 +2,16 @@ package com.estela.fullride;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,8 +67,10 @@ public class Profile extends Fragment  {
 //        return inflater.inflate(R.layout.fragment_profile, container, false);
 //    }
 
-    private TextView  major, name;
-
+    private TextView  major, name, m, t, w, th, f, s, sn ;
+    private Button sch, rou;
+    private CardView sche,rout ;
+    private EditText m1, t1, w1, th1, f1, s1, sn1, m2, t2, w2, th2, f2, s2, sn2;
 //    public Profile(){
 //        // require a empty public constructor
 //    }
@@ -83,7 +80,6 @@ public class Profile extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
-
 
 //        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //        String userID = user.getUid();
@@ -103,5 +99,93 @@ public class Profile extends Fragment  {
 //            }
 //        });
 
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        sch = (Button) getView().findViewById(R.id.addsch);
+        rou = (Button) getView().findViewById(R.id.addr);
+
+        sche = (CardView) getView().findViewById(R.id.schcv);
+        rout = (CardView) getView().findViewById(R.id.rcv);
+
+        m = (TextView) getView().findViewById(R.id.tm);
+        t = (TextView) getView().findViewById(R.id.tt);
+        w = (TextView) getView().findViewById(R.id.tw);
+        th = (TextView) getView().findViewById(R.id.tth);
+        f = (TextView) getView().findViewById(R.id.tf);
+        s = (TextView) getView().findViewById(R.id.ts);
+        sn = (TextView) getView().findViewById(R.id.tsn);
+
+        m1 = (EditText) getView().findViewById(R.id.m1);
+        t1 = (EditText) getView().findViewById(R.id.t1);
+        w1 = (EditText) getView().findViewById(R.id.w1);
+        th1 = (EditText) getView().findViewById(R.id.th1);
+        f1 = (EditText) getView().findViewById(R.id.f1);
+        s1 = (EditText) getView().findViewById(R.id.s1);
+        sn1 = (EditText) getView().findViewById(R.id.sn1);
+
+        m2 = (EditText) getView().findViewById(R.id.m2);
+        t2 = (EditText) getView().findViewById(R.id.t2);
+        w2 = (EditText) getView().findViewById(R.id.w2);
+        th2 = (EditText) getView().findViewById(R.id.th2);
+        f2 = (EditText) getView().findViewById(R.id.f2);
+        s2 = (EditText) getView().findViewById(R.id.sn2);
+        sn2 = (EditText) getView().findViewById(R.id.sn2);
+
+        if(m1 == null || m2 ==null){
+            m.setText("No Class");}
+        else{
+        m.setText( m1.getText() + " to " + m2.getText());
+        }
+
+        if(t1 == null || t2 ==null){
+            t.setText("No Class");}
+        else{
+            t.setText( t1.getText() + " to " + t2.getText());
+        }
+
+        if(w1 == null || w2 ==null){
+            w.setText("No Class");}
+        else{
+            w.setText( w1.getText() + " to " + w2.getText());
+        }
+
+        if(th1 == null || th2 ==null){
+            th.setText("No Class");}
+        else{
+        th.setText( th1.getText() + " to " + th2.getText());}
+
+        if(f1== null || f2 ==null){
+            f.setText("No Class");}
+        else{
+
+        f.setText( f1.getText() + " to " + f2.getText());}
+        if(s1 == null || s2 ==null){
+            s.setText("No Class");}
+        else{
+        s.setText( s1.getText() + " to " + s2.getText());}
+
+        if(sn1 == null || sn2 ==null){
+            sn.setText("No Class");}
+        else{
+        sn.setText( sn1.getText() + " to " + sn2.getText());}
+
+        sch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SchedulePop s = new SchedulePop();
+
+                s.show(getActivity().getSupportFragmentManager(), "ScheduleDialog");
+            }
+        });
+
+        rou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

@@ -76,13 +76,146 @@
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <Button
+                android:id="@+id/addsch"
+                android:layout_width="121dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="270dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/sch"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                app:cornerRadius="30dp"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/schcv"
                 android:layout_width="386dp"
-                android:layout_height="97dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 app:cardCornerRadius="15dp">
 
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/alata"
+                    android:text="@string/mon" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="55dp"
+                    android:fontFamily="@font/alata"
+                    tools:text="@string/tus2" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="85dp"
+                    android:fontFamily="@font/alata"
+                    tools:text="@string/wed2" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="115dp"
+                    android:fontFamily="@font/alata"
+                    tools:text="@string/thu2" />
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:fontFamily="@font/alata"
+
+                    android:layout_marginTop="145dp"
+                    android:text="@string/fri" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:fontFamily="@font/alata"
+                    android:layout_marginTop="175dp"
+                    android:text="@string/sat" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="205dp"
+                    android:fontFamily="@font/alata"
+                    android:layout_marginBottom="25dp"
+                    android:text="@string/sun" />
+
+                <TextView
+                    android:id="@+id/tm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="25dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="55dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="85dp"
+                    android:layout_marginLeft="200dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tth"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="115dp"
+                    android:layout_marginLeft="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="145dp"                    android:layout_marginLeft="200dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/ts"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="175dp"
+                    android:layout_marginLeft="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tsn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="205dp"
+                    android:text="TextView" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -94,7 +227,20 @@
                 android:text="@string/route"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/addr"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_marginLeft="283dp"
+                android:layout_marginTop="-29dp"
+                android:text="@string/add"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                app:cornerRadius="30dp" />
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/rcv"
                 android:layout_width="386dp"
                 android:layout_height="97dp"
                 android:layout_marginStart="10dp"
@@ -102,7 +248,6 @@
                 app:cardCornerRadius="15dp">
 
             </androidx.cardview.widget.CardView>
-
 
 
         </LinearLayout>
