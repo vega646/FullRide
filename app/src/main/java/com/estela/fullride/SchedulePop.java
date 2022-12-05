@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,11 +62,6 @@ public class SchedulePop extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
 
 
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -111,50 +107,50 @@ public class SchedulePop extends AppCompatDialogFragment {
         s2 = (EditText) vr.findViewById(R.id.sn2);
         sn2 = (EditText) vr.findViewById(R.id.sn2);
 
-        nu = t1.getText().toString();
-        mParam1 = "";
+//        nu = t1.getText().toString();
+//        mParam1 = "";
 
         builder.setView(vr)
 
                 .setNegativeButton("cancel",(dialog, which) -> {
 
                 })
-                .setPositiveButton("Create", (dialog, which) -> {
+                .setPositiveButton("save", (dialog, which) -> {
 
-                    if(m1.getText() == null || m2.getText() ==null){
+                    if((TextUtils.isEmpty(m1.getText().toString())) || (TextUtils.isEmpty(m2.getText().toString()))){
                         m.setText("No Class");}
                     else{
                         m.setText( m1.getText() + " to " + m2.getText());
                     }
 
-                    if(t1.getText().toString() == null || t2.getText().toString() ==null){
+                    if((TextUtils.isEmpty(t1.getText().toString())) || (TextUtils.isEmpty(t2.getText().toString()))){
                         t.setText("No Class");}
                     else{
                         t.setText( t1.getText() + " to " + t2.getText());
                     }
 
-                    if(w1 == null || w2 ==null){
+                    if((TextUtils.isEmpty(w1.getText().toString())) || (TextUtils.isEmpty(w2.getText().toString()))){
                         w.setText("No Class");}
                     else{
                         w.setText( w1.getText() + " to " + w2.getText());
                     }
 
-                    if(th1 == null || th2 ==null){
+                    if((TextUtils.isEmpty(th1.getText().toString())) || (TextUtils.isEmpty(th2.getText().toString()))){
                         th.setText("No Class");}
                     else{
                         th.setText( th1.getText() + " to " + th2.getText());}
 
-                    if(f1== null || f2 ==null){
+                    if((TextUtils.isEmpty(f1.getText().toString())) || (TextUtils.isEmpty(f2.getText().toString()))){
                         f.setText("No Class");}
                     else{
 
                         f.setText( f1.getText() + " to " + f2.getText());}
-                    if(s1 == null || s2 ==null){
+                    if((TextUtils.isEmpty(s1.getText().toString())) || (TextUtils.isEmpty(s2.getText().toString()))){
                         s.setText("No Class");}
                     else{
                         s.setText( s1.getText() + " to " + s2.getText());}
 
-                    if(sn1 == null || sn2 ==null){
+                    if((TextUtils.isEmpty(sn1.getText().toString())) || (TextUtils.isEmpty(sn2.getText().toString()))){
                         sn.setText("No Class");}
                     else{
                         sn.setText( sn1.getText() + " to " + sn2.getText());}

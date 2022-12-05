@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
@@ -23,12 +24,12 @@ import java.util.Objects;
 public class Register_User extends AppCompatActivity implements View.OnClickListener{
 
 
-    private final FirebaseDatabase _database = FirebaseDatabase.getInstance();
+    private final FirebaseDatabase _database = FirebaseDatabase.getInstance("https://full-ride-59aee-default-rtdb.firebaseio.com/");
     //firebase Auth
     private FirebaseAuth _authentication;
     //information need it
     private EditText  _fullname, _lastname, _email, _password, _major ;
-
+    private DatabaseReference ref;
     //buttons
     private Button _registerBtn;
 
@@ -131,9 +132,8 @@ public class Register_User extends AppCompatActivity implements View.OnClickList
         _authentication.createUserWithEmailAndPassword(_Email, _Password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-
                         User_information users = new User_information(_FirstName, _LastName,  _Email, _Password, _Major);
-                        _database.getReference("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
+                        _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
                                         .getUid()).setValue(users)
                                 .addOnCompleteListener
                                         (task1 -> {

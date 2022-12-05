@@ -5,20 +5,31 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.estela.fullride.databinding.ActivityMapsBinding;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
-public class MapsFragment extends Fragment implements GoogleMap.OnMarkerClickListener{
+import java.util.Locale;
+
+public class MapsFragment extends Fragment implements OnMapReadyCallback{
+    private MapFragment mapFragment;
+    private LatLng wp = new LatLng(28.598797,-81.358315);
 
     private ActivityMapsBinding binding;
     private GoogleMap map;
@@ -36,6 +47,8 @@ public class MapsFragment extends Fragment implements GoogleMap.OnMarkerClickLis
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            setupAutoCompleteFragment();
+
             map = googleMap;
             LatLng sydney = new LatLng(-34, 151);
             map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -50,7 +63,28 @@ public class MapsFragment extends Fragment implements GoogleMap.OnMarkerClickLis
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
+    private void setupAutoCompleteFragment() {
+        String api = getString(R.string.API_KEY);
 
+        Places.initialize(getContext(), api, Locale.US);
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getFragmentManager().findFragmentById(R.id.autocomplete_fragment2);
+        if (autocompleteFragment != null) {
+            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                @Override
+                public void onPlaceSelected(Place place) {
+                    wp = place.getLatLng();
+                    mapFragment.getMapAsync(MapsFragment.this);
+                }
+
+                @Override
+                public void onError(Status status) {
+                    Log.e("Error", status.getStatusMessage());
+                }
+            });
+        }
+
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -61,8 +95,9 @@ public class MapsFragment extends Fragment implements GoogleMap.OnMarkerClickLis
         }
     }
 
+
     @Override
-    public boolean onMarkerClick(@NonNull Marker marker) {
-        return false;
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+
     }
 }

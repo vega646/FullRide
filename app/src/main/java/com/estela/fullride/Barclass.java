@@ -30,7 +30,7 @@ public class Barclass extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_maps);
         v = findViewById(R.id.bottomNavigationView);
 
