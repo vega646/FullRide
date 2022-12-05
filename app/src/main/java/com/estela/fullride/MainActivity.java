@@ -1,13 +1,9 @@
 package com.estela.fullride;
 
-import static android.content.ContentValues.TAG;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -20,11 +16,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -59,8 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
 
-
-        setContentView(R.layout.loginpage);
+        setContentView(R.layout.user_login);
         getSupportActionBar().hide();
 
         //google
@@ -115,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (v.getId() == _create_User.getId()) {
 
-            startActivity(new Intent(this, Register_User.class));
+            startActivity(new Intent(this, CustomerResgister.class));
         }
         if (v.getId() == _forgotPass.getId()) {
             startActivity(new Intent(this, Forgot_password.class));
@@ -219,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (task.isSuccessful()) {
 
                         UI_Update();
-                        User_information data = new User_information(_authent.getCurrentUser().getDisplayName()," ", _authent.getCurrentUser().getEmail(),"","");
+                        User_information data = new User_information(_authent.getCurrentUser().getDisplayName()," ", _authent.getCurrentUser().getEmail(),"","", "");
                         _database.getReference("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
                                 .getUid()).setValue(data);
                     }

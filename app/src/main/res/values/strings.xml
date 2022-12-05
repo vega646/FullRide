@@ -37,4 +37,7 @@
     <string name="mr">Modify Route to Full Sail</string>
     <string name="acc">Accept</string>
     <string name="deny">Deny</string>
+    <string name="join">You will be joining us as a...</string>
+    <string name="driv">Driver</string>
+    <string name="Rider">Rider</string>
 </resources>

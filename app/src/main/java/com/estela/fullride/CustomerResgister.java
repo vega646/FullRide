@@ -1,15 +1,13 @@
 package com.estela.fullride;
 
-import android.app.DatePickerDialog;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +16,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Calendar;
 import java.util.Objects;
 
-public class Register_User extends AppCompatActivity implements View.OnClickListener{
+public class CustomerResgister extends AppCompatActivity implements View.OnClickListener{
 
 
     private final FirebaseDatabase _database = FirebaseDatabase.getInstance("https://full-ride-59aee-default-rtdb.firebaseio.com/");
@@ -32,23 +29,24 @@ public class Register_User extends AppCompatActivity implements View.OnClickList
     private DatabaseReference ref;
     //buttons
     private Button _registerBtn;
+private String _status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_user);
+        setContentView(R.layout.rider_register);
 
         _authentication = FirebaseAuth.getInstance();
-        _fullname = findViewById(R.id.register_firstname);
-        _lastname = findViewById(R.id.register_lastname);
-        _email = findViewById(R.id.register_email);
-        _password = findViewById(R.id.register_password);
-        _major =findViewById(R.id.major);
-
+        _fullname = findViewById(R.id.register_firstnam);
+        _lastname = findViewById(R.id.register_lastnam);
+        _email = findViewById(R.id.register_emai);
+        _password = findViewById(R.id.register_passwor);
+        _major =findViewById(R.id.majo);
+        _status = "rider";
 
         //buttons
-        _registerBtn = findViewById(R.id.register_btn);
-        ImageButton _back_Login = findViewById(R.id.register_back);
+        _registerBtn = findViewById(R.id.register_b);
+        ImageButton _back_Login = findViewById(R.id.register_bac);
 
         _back_Login.setOnClickListener(this);
     }
@@ -56,13 +54,13 @@ public class Register_User extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.register_back) {
+        if (v.getId() == R.id.register_bac) {
 
             startActivity(new Intent(this, MainActivity.class));
 
         }
 
-        if (v.getId() == R.id.register_btn) {
+        if (v.getId() == R.id.register_b) {
 
             RegisterUser();
 
@@ -132,24 +130,24 @@ public class Register_User extends AppCompatActivity implements View.OnClickList
         _authentication.createUserWithEmailAndPassword(_Email, _Password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        User_information users = new User_information(_FirstName, _LastName,  _Email, _Password, _Major);
-                        _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
+                        User_information users = new User_information(_FirstName, _LastName,  _Email, _Password, _Major, _status);
+                        _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("users").child("customer").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
                                         .getUid()).setValue(users)
                                 .addOnCompleteListener
                                         (task1 -> {
                                             if (task1.isComplete()) {
 
-                                                Toast.makeText(Register_User.this, "You're registered!", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(CustomerResgister.this, "You're registered as a customer!", Toast.LENGTH_LONG).show();
                                             } else {
 
-                                                Toast.makeText(Register_User.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(CustomerResgister.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
 
                                             }
                                         });
 
                     } else {
 
-                        Toast.makeText(Register_User.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CustomerResgister.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
                     }
                 });
     }

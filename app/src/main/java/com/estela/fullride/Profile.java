@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -35,6 +36,7 @@ public class Profile extends Fragment  {
 //    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FirebaseUser user1;
 //
     public Profile() {
         // Required empty public constructor
@@ -93,15 +95,20 @@ public class Profile extends Fragment  {
     {
         major = getView().findViewById(R.id.pmajor);
         name = getView().findViewById(R.id.pname);
-
+        user1 = FirebaseAuth.getInstance().getCurrentUser();
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                major.setText(snapshot.child(userID).child("_major").getValue(String.class));
-                name.setText(snapshot.child(userID).child("_firstname").getValue(String.class) + " " + snapshot.child(userID).child("_lastname").getValue(String.class));
-
+                if(snapshot.hasChild("driver")) {
+                    major.setText(snapshot.child("driver").child(userID).child("_major").getValue(String.class));
+                    name.setText(snapshot.child("driver").child(userID).child("_firstname").getValue(String.class) + " " + snapshot.child("driver").child(userID).child("_lastname").getValue(String.class));
+                }
+                else if (snapshot.hasChild("customer")) {
+                    major.setText(snapshot.child("customer").child(userID).child("_major").getValue(String.class));
+                    name.setText(snapshot.child("customer").child(userID).child("customer").child("_firstname").getValue(String.class) + " " + snapshot.child("customer").child(userID).child("_lastname").getValue(String.class));
+                }
             }
 
             @Override

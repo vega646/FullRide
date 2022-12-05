@@ -27,8 +27,6 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
     public interface OnItemClickListener
     {
         void OnItemClick(Requestitem ac);
-
-
     }
 
     @NonNull

@@ -7,6 +7,16 @@ public class User_information {
     public String _email;
     public String _password;
 
+    public String get_status() {
+        return _status;
+    }
+
+    public void set_status(String _status) {
+        this._status = _status;
+    }
+
+    public String _status;
+
     public String _major;
 
     public String getMajor() {
@@ -55,12 +65,13 @@ public class User_information {
 
 
 
-    public User_information(String _Firstname, String _Lastname, String _Email, String _Password, String Major) {
+    public User_information(String _Firstname, String _Lastname, String _Email, String _Password, String Major, String Status) {
 
         _firstname = _Firstname;
         _lastname = _Lastname;
         _email = _Email;
         _password = _Password;
         _major = Major;
+        _status = Status;
     }
 }

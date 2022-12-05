@@ -7,6 +7,9 @@
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/activity_maps.xml" value="0.33" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/activity_register_user.xml" value="0.33" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/dlogin.xml" value="0.17983789260385005" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/driver_login.xml" value="0.1" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/driverrider.xml" value="0.25" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_find.xml" value="0.33" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_maps.xml" value="0.33" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_messages.xml" value="0.20153985507246377" />
@@ -19,6 +22,8 @@
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/popr.xml" value="0.22" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/popup.xml" value="0.33" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/request_item.xml" value="0.25" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/rider_login.xml" value="0.365625" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/user_login.xml" value="0.1" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1814814814814815" />
       </map>
     </option>
@@ -28,5 +33,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>
