@@ -35,4 +35,6 @@
     <string name="wed2">Wednesday</string>
     <string name="thu2">Thursday</string>
     <string name="mr">Modify Route to Full Sail</string>
+    <string name="acc">Accept</string>
+    <string name="deny">Deny</string>
 </resources>
