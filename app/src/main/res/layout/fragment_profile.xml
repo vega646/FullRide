@@ -8,6 +8,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="386dp"
         android:layout_height="97dp"
         android:layout_marginTop="40dp"
@@ -20,18 +21,18 @@
         <TextView
             android:id="@+id/pmajor"
             android:layout_width="138dp"
-            android:fontFamily="@font/alata"
             android:layout_height="24dp"
             android:layout_marginStart="130dp"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/alata" />
 
         <TextView
             android:id="@+id/pname"
-            android:fontFamily="@font/alata"
             android:layout_width="137dp"
             android:layout_height="26dp"
             android:layout_marginStart="130dp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/alata" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -41,6 +42,17 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/pro"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/logoutb"
+            android:layout_width="80dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="289dp"
+            android:text="Button"
+            android:textAllCaps="false"
+            android:textSize="11sp"
+            tools:text="@string/Logout" />
 
     </androidx.cardview.widget.CardView>
 
@@ -91,7 +103,7 @@
                 android:text="@string/sch"
                 android:textAllCaps="false"
                 android:textSize="12sp"
-                app:cornerRadius="30dp"
+                app:cornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.cardview.widget.CardView
@@ -238,7 +250,7 @@
                 android:text="@string/add"
                 android:textAllCaps="false"
                 android:textSize="12sp"
-                app:cornerRadius="30dp" />
+                app:cornerRadius="8dp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/rcv"

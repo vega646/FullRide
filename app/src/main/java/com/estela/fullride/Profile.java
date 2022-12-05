@@ -1,11 +1,13 @@
 package com.estela.fullride;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
  * Use the {link Profile#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Profile extends Fragment  {
+public class Profile extends Fragment {
 //
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,7 +79,7 @@ public class Profile extends Fragment  {
 //    }
 
     private TextView  major, name, m, t, w, th, f, s, sn ;
-    private Button sch, rou;
+    private Button sch, rou, logo;
     private CardView sche,rout ;
     private EditText m1, t1, w1, th1, f1, s1, sn1, m2, t2, w2, th2, f2, s2, sn2;
 
@@ -119,6 +121,7 @@ public class Profile extends Fragment  {
 
         sch = (Button) getView().findViewById(R.id.addsch);
         rou = (Button) getView().findViewById(R.id.addr);
+        logo = (Button) getView().findViewById(R.id.logoutb);
 
         sch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,5 +140,18 @@ public class Profile extends Fragment  {
                 r.show(getActivity().getSupportFragmentManager(), "RouteDialog");
             }
         });
+
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                change();
+            }
+        });
+    }
+    private void change(){
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+
     }
 }
