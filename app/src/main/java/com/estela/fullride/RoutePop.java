@@ -105,7 +105,7 @@ public class RoutePop extends AppCompatDialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-//        LayoutInflater cardIn = requireActivity().getLayoutInflater();
+        LayoutInflater cardIn = requireActivity().getLayoutInflater();
         View vr = inflater.inflate(R.layout.popr, null);
 
 

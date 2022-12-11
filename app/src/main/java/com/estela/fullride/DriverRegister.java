@@ -130,7 +130,7 @@ public class DriverRegister extends AppCompatActivity implements View.OnClickLis
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         User_information users = new User_information(_FirstName, _LastName,  _Email, _Password, _Major, _status);
-                        _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("users").child("driver").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
+                        _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
                                         .getUid()).setValue(users)
                                 .addOnCompleteListener
                                         (task1 -> {

@@ -1,9 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Messages">
+    android:layout_height="match_parent">
 
 
-</FrameLayout>
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="415dp"
+        android:layout_height="621dp"
+        android:layout_gravity="end"
+        app:layout_constraintBottom_toTopOf="@+id/Mensage_in"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints">
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/recicle_mesg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sent_input"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:adjustViewBounds="false"
+        android:backgroundTint="@color/fs"
+        android:clickable="false"
+        android:fitsSystemWindows="true"
+        android:src="@android:drawable/ic_menu_send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.914"
+        app:layout_marginBaseline="10dp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/Mensage_in"
+        android:layout_width="286dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/cardview_shadow_end_color"
+        android:clickable="false"
+        android:ellipsize="none"
+        android:fitsSystemWindows="true"
+        android:hint="@string/say_hi"
+        android:lineSpacingExtra="10sp"
+        android:textColorHint="#150B0B"
+        android:textDirection="locale"
+        android:textSize="24sp"
+        android:verticalScrollbarPosition="defaultPosition"
+        app:boxBackgroundColor="@android:color/black"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="#00FFFFFF"
+        app:circularflow_defaultRadius="@dimen/cardview_default_radius"
+        app:helperText="@string/say_hi"
+        app:helperTextEnabled="true"
+        app:hintAnimationEnabled="false"
+        app:hintEnabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sent_input"
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.942">
+
+    </EditText>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

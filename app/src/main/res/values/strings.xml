@@ -41,4 +41,9 @@
     <string name="driv">Driver</string>
     <string name="Rider">Rider</string>
     <string name="logout">Log Out</string>
+    <string name="say_hi">Send message</string>
+    <string name="title_location_permission">Grant Location Access</string>
+    <string name="text_location_permission">Do you allow Full Ride to access your location?</string>
+    <string name="ok">OK</string>
+    <string name="lokf">Look for an approximate address</string>
 </resources>

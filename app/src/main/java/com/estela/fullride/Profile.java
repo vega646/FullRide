@@ -98,18 +98,24 @@ public class Profile extends Fragment {
         major = getView().findViewById(R.id.pmajor);
         name = getView().findViewById(R.id.pname);
         user1 = FirebaseAuth.getInstance().getCurrentUser();
+        sch = (Button) getView().findViewById(R.id.addsch);
+        rou = (Button) getView().findViewById(R.id.addr);
+        logo = (Button) getView().findViewById(R.id.logoutb);
+        String r = "rider";
+        String d = "driver";
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChild("driver")) {
-                    major.setText(snapshot.child("driver").child(userID).child("_major").getValue(String.class));
-                    name.setText(snapshot.child("driver").child(userID).child("_firstname").getValue(String.class) + " " + snapshot.child("driver").child(userID).child("_lastname").getValue(String.class));
+
+                if(snapshot.child(userID).child("_status").getValue(String.class).equals("driver")) {
+                    major.setText(snapshot.child(userID).child("_major").getValue(String.class));
+                    name.setText(snapshot.child(userID).child("_firstname").getValue(String.class) + " " + snapshot.child(userID).child("_lastname").getValue(String.class));
                 }
-                else if (snapshot.hasChild("customer")) {
-                    major.setText(snapshot.child("customer").child(userID).child("_major").getValue(String.class));
-                    name.setText(snapshot.child("customer").child(userID).child("customer").child("_firstname").getValue(String.class) + " " + snapshot.child("customer").child(userID).child("_lastname").getValue(String.class));
+                else if (snapshot.child(userID).child("_status").getValue(String.class).equals("rider")) {
+                    major.setText(snapshot.child(userID).child("_major").getValue(String.class));
+                    name.setText(snapshot.child(userID).child("_firstname").getValue(String.class) + " " + snapshot.child(userID).child("_lastname").getValue(String.class));
                 }
             }
 
@@ -119,9 +125,7 @@ public class Profile extends Fragment {
             }
         });
 
-        sch = (Button) getView().findViewById(R.id.addsch);
-        rou = (Button) getView().findViewById(R.id.addr);
-        logo = (Button) getView().findViewById(R.id.logoutb);
+
 
         sch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,9 +139,10 @@ public class Profile extends Fragment {
         rou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RoutePop r = new RoutePop();
 
-                r.show(getActivity().getSupportFragmentManager(), "RouteDialog");
+                Intent i = new Intent(v.getContext(),mapProfile.class);
+                startActivity(i);
+
             }
         });
 
@@ -146,12 +151,14 @@ public class Profile extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 change();
+                return;
             }
         });
     }
     private void change(){
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
+
 
     }
 }

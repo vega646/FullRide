@@ -3,25 +3,18 @@ package com.estela.fullride;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.estela.fullride.databinding.ActivityMapsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Barclass extends AppCompatActivity {
 
@@ -36,12 +29,30 @@ public class Barclass extends AppCompatActivity {
 
         if (v != null)
         {
+            showselected(new Profile());
+
             v.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                     if (item.getItemId() == R.id.find){
-                        showselected(new MapsFragment());
+                        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.hasChild("driver")) {
+                                    showselected(new DriverMapsFragment());
+                                }
+                                else if (snapshot.hasChild("customer")) {
+                                    showselected(new RiderMapsFragment());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                     }
 
                     if (item.getItemId() == R.id.req){
@@ -55,7 +66,7 @@ public class Barclass extends AppCompatActivity {
                         showselected(new Profile());
                     }
                     if (item.getItemId() == R.id.mes){
-                        showselected(new Messages());
+                        showselected(new Messagesfragment());
                     }
 
                     return true;

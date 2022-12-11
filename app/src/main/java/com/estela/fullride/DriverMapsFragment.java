@@ -18,7 +18,6 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -27,7 +26,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 
 import java.util.Locale;
 
-public class MapsFragment extends Fragment implements OnMapReadyCallback{
+public class DriverMapsFragment extends Fragment implements OnMapReadyCallback{
     private MapFragment mapFragment;
     private LatLng wp = new LatLng(28.598797,-81.358315);
 
@@ -47,7 +46,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            setupAutoCompleteFragment();
 
             map = googleMap;
             LatLng sydney = new LatLng(-34, 151);
@@ -61,35 +59,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_maps, container, false);
+        return inflater.inflate(R.layout.driver_map_fragment, container, false);
     }
-    private void setupAutoCompleteFragment() {
-        String api = getString(R.string.API_KEY);
 
-        Places.initialize(getContext(), api, Locale.US);
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getFragmentManager().findFragmentById(R.id.autocomplete_fragment2);
-        if (autocompleteFragment != null) {
-            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    wp = place.getLatLng();
-                    mapFragment.getMapAsync(MapsFragment.this);
-                }
-
-                @Override
-                public void onError(Status status) {
-                    Log.e("Error", status.getStatusMessage());
-                }
-            });
-        }
-
-    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map3);
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
