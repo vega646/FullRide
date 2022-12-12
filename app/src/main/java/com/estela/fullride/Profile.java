@@ -29,17 +29,10 @@ public class Profile extends Fragment {
     private TextView  major, name;
     private Button sch, rou, logo, req;
     String profid;
-    double lat, longi;
+    private TextView  m, t, w, th, f, s, sn ;
 
     public Profile() {}
 
-//    public String getProfid() {
-//        return profid;
-//    }
-//
-//    public void setProfid(String profid) {
-//        this.profid = profid;
-//    }
 
     public Profile(String profid) {
 
@@ -65,6 +58,14 @@ public class Profile extends Fragment {
         logo = (Button) getView().findViewById(R.id.logoutb);
         req = (Button) getView().findViewById(R.id.sendreqb);
         req.setVisibility(View.GONE);
+
+        m = (TextView) getActivity().findViewById(R.id.tm);
+        t = (TextView) getActivity().findViewById(R.id.tt);
+        w = (TextView) getActivity().findViewById(R.id.tw);
+        th = (TextView) getActivity().findViewById(R.id.tth);
+        f = (TextView) getActivity().findViewById(R.id.tf);
+        s = (TextView) getActivity().findViewById(R.id.ts);
+        sn = (TextView) getActivity().findViewById(R.id.tsn);
 
         if(profid !=  FirebaseAuth.getInstance().getCurrentUser().getUid())
         {
@@ -105,6 +106,29 @@ public class Profile extends Fragment {
 
         });
 
+        FirebaseDatabase.getInstance().getReference("Schedules").addValueEventListener(new ValueEventListener() {
+
+            @Override
+
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                m.setText(snapshot.child(profid).child("m").getValue(String.class));
+                t.setText(snapshot.child(profid).child("tu").getValue(String.class));
+                w.setText(snapshot.child(profid).child("w").getValue(String.class));
+                th.setText(snapshot.child(profid).child("th").getValue(String.class));
+                f.setText(snapshot.child(profid).child("f").getValue(String.class));
+                s.setText(snapshot.child(profid).child("s").getValue(String.class));
+                sn.setText(snapshot.child(profid).child("su").getValue(String.class));
+
+
+            }
+
+            @Override
+
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
         sch.setOnClickListener(new View.OnClickListener() {
 
             @Override

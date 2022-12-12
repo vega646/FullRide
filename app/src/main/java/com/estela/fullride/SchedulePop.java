@@ -16,6 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +40,10 @@ public class SchedulePop extends AppCompatDialogFragment {
     private String mParam2;
     private EditText m1, t1, w1, th1, f1, s1, sn1, m2, t2, w2, th2, f2, s2, sn2;
     private TextView  m, t, w, th, f, s, sn ;
-    private String nu;
+    private String mo, tu, we, htu, fr, sa, su;
+    private final FirebaseDatabase _database = FirebaseDatabase.getInstance("https://full-ride-59aee-default-rtdb.firebaseio.com/");
+
+
     public SchedulePop() {
         // Required empty public constructor
     }
@@ -75,9 +84,6 @@ public class SchedulePop extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         LayoutInflater cardIn = requireActivity().getLayoutInflater();
@@ -107,8 +113,6 @@ public class SchedulePop extends AppCompatDialogFragment {
         s2 = (EditText) vr.findViewById(R.id.sn2);
         sn2 = (EditText) vr.findViewById(R.id.sn2);
 
-//        nu = t1.getText().toString();
-//        mParam1 = "";
 
         builder.setView(vr)
 
@@ -118,43 +122,81 @@ public class SchedulePop extends AppCompatDialogFragment {
                 .setPositiveButton("save", (dialog, which) -> {
 
                     if((TextUtils.isEmpty(m1.getText().toString())) || (TextUtils.isEmpty(m2.getText().toString()))){
-                        m.setText("No Class");}
+                        m.setText("No Class");
+                        mo = "No Class";
+
+                    }
                     else{
                         m.setText( m1.getText() + " to " + m2.getText());
+                        mo = m1.getText() + " to " + m2.getText();
                     }
 
                     if((TextUtils.isEmpty(t1.getText().toString())) || (TextUtils.isEmpty(t2.getText().toString()))){
-                        t.setText("No Class");}
+                        t.setText("No Class");
+                        tu = "No Class";
+
+                    }
                     else{
                         t.setText( t1.getText() + " to " + t2.getText());
+                        tu = t1.getText() + " to " + t2.getText();
                     }
 
                     if((TextUtils.isEmpty(w1.getText().toString())) || (TextUtils.isEmpty(w2.getText().toString()))){
-                        w.setText("No Class");}
+                        w.setText("No Class");
+                        we = "No Class";
+
+                    }
                     else{
                         w.setText( w1.getText() + " to " + w2.getText());
+                        we = w1.getText() + " to " + w2.getText();
                     }
 
                     if((TextUtils.isEmpty(th1.getText().toString())) || (TextUtils.isEmpty(th2.getText().toString()))){
-                        th.setText("No Class");}
+                        th.setText("No Class");
+                        htu = "No Class";
+
+                    }
                     else{
-                        th.setText( th1.getText() + " to " + th2.getText());}
+                        th.setText( th1.getText() + " to " + th2.getText());
+                        htu = th1.getText() + " to " + th2.getText();
+                    }
 
                     if((TextUtils.isEmpty(f1.getText().toString())) || (TextUtils.isEmpty(f2.getText().toString()))){
-                        f.setText("No Class");}
+                        f.setText("No Class");
+                        fr = "No Class";
+
+                    }
                     else{
 
-                        f.setText( f1.getText() + " to " + f2.getText());}
+                        f.setText( f1.getText() + " to " + f2.getText());
+                        fr = f1.getText() + " to " + f2.getText();
+                    }
                     if((TextUtils.isEmpty(s1.getText().toString())) || (TextUtils.isEmpty(s2.getText().toString()))){
-                        s.setText("No Class");}
+                        s.setText("No Class");
+                        sa = "No Class";
+                    }
                     else{
-                        s.setText( s1.getText() + " to " + s2.getText());}
+                        s.setText( s1.getText() + " to " + s2.getText());
+                        sa = s1.getText() + " to " + s2.getText();
+                    }
 
                     if((TextUtils.isEmpty(sn1.getText().toString())) || (TextUtils.isEmpty(sn2.getText().toString()))){
-                        sn.setText("No Class");}
+                        sn.setText("No Class");
+                        su = "No Class";
+                    }
                     else{
-                        sn.setText( sn1.getText() + " to " + sn2.getText());}
+                        sn.setText( sn1.getText() + " to " + sn2.getText());
+                        su = sn1.getText() + " to " + sn2.getText();
+                    }
+
+                    Schedule sch = new Schedule(mo, tu, we, htu, fr, sa, su);
+                    _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("Schedules").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
+                                    .getUid()).setValue(sch);
+
+
                 });
+
         return builder.create();
+
     }
 }
