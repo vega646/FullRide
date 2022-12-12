@@ -77,7 +77,7 @@
             android:exported="true"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".mapProfile"
+            android:name=".maproutepop"
             android:exported="true"
             tools:ignore="Instantiatable" />
 

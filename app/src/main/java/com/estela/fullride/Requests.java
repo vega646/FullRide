@@ -2,63 +2,135 @@ package com.estela.fullride;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Requests#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+
 public class Requests extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    RecyclerView acted, unseen;
+    RecyclerView.Adapter adapter, adapter2;
+    ArrayList<Requestitem> requestitems;
+    ArrayList<Requestitem> requestitemsaccted;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public Requests() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Requests.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Requests newInstance(String param1, String param2) {
-        Requests fragment = new Requests();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_requests, container, false);
+
+    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+    {
+        unseen = getView().findViewById(R.id.recunseen);
+        acted  = getView().findViewById(R.id.reqacted);
+
+        unseen.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        acted.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        requestitems = new ArrayList<>();
+        requestitemsaccted = new ArrayList<>();
+
+        adapter2 = new RequestAdapter(requestitemsaccted, new RequestAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(Requestitem ev) {
+                showselected(new Profile(ev.getRiderid()));
+            }
+        });
+
+        adapter = new RequestAdapter(requestitems, new RequestAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(Requestitem ev) {
+                showselected(new Profile(ev.getRiderid()));
+            }
+        });
+        acted.setAdapter(adapter2);
+        unseen.setAdapter(adapter);
+
+        createrequest();
+    }
+
+
+    private void createrequest(){
+        DatabaseReference userefdata = FirebaseDatabase.getInstance().getReference().child("Requests");
+
+        userefdata.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                for (DataSnapshot snap : snapshot.getChildren()) {
+
+                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    String drivid = snap.child("driverid").getValue(String.class);
+                    Boolean acted = snap.child("actedon").getValue(Boolean.class);
+
+                    if (Objects.equals(drivid, userID)){
+
+                        Requestitem evt = new Requestitem(snap.child("_name").getValue(String.class),
+                            snap.child("_major").getValue(String.class),
+                            snap.child("time").getValue(String.class),
+                            snap.child("riderid").getValue(String.class),
+                            snap.child("driverid").getValue(String.class),
+                            false
+                        );
+                        if(acted == true)
+                        {
+                            requestitemsaccted.add(evt);
+                        }
+                        else {
+                            requestitems.add(evt);
+                        }
+
+                    }
+                }
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });}
+
+
+    private void showselected(Fragment f){
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.cont, f)
+
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+
+                .commit();
+
     }
 }

@@ -16,7 +16,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvactiv"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:alpha="80"
         app:cardCornerRadius="10dp"
         app:cardPreventCornerOverlap="true"
@@ -35,28 +35,29 @@
                 android:id="@+id/bcanc"
                 android:layout_width="193dp"
                 android:layout_height="41dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="208dp"
-                android:layout_marginTop="98dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="0dp"
+                android:layout_below="@+id/actdate"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@+id/bacc"
                 android:backgroundTint="@color/quantum_googred"
                 android:text="@string/deny"
                 android:textAllCaps="false" />
 
             <TextView
                 android:id="@+id/actdate"
-                android:layout_width="274dp"
+                android:layout_width="228dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="74dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="81dp"
+                android:layout_marginEnd="78dp"
+                android:layout_toEndOf="@+id/imageView2"
+                android:textAlignment="center"
                 android:textColor="#000"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/actname"
@@ -64,10 +65,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="143dp"
-                android:layout_marginTop="13dp"
+                android:layout_marginStart="123dp"
+                android:layout_marginTop="14dp"
+                android:textAlignment="center"
                 android:textColor="#000"
-                android:textSize="17sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/amajor"
@@ -75,26 +77,23 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="168dp"
-                android:layout_marginTop="46dp"
-                android:textSize="14sp" />
+                android:layout_marginStart="148dp"
+                android:layout_marginTop="48dp"
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/bacc"
                 android:layout_width="193dp"
                 android:layout_height="41dp"
+                android:layout_below="@+id/actdate"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="98dp"
-                android:layout_marginEnd="203dp"
-                android:layout_marginBottom="-1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/quantum_lightgreen"
-                android:capitalize="none"
-                android:textAllCaps="false"
-                tools:text="@string/acc" />
+                android:text="@string/acc"
+                android:textAllCaps="false" />
 
             <ImageView
                 android:id="@+id/imageView2"

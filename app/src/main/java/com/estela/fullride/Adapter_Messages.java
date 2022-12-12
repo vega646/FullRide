@@ -2,7 +2,6 @@ package com.estela.fullride;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -48,7 +45,7 @@ public class Adapter_Messages extends RecyclerView.Adapter<Adapter_Messages.view
 
         holder.name.setText(messenges.get(position).getSender());
         holder.date.setText(messenges.get(position).getDate());
-        holder.messenger.setText((messenges.get(position).getMessenger()));
+        holder.messenger.setText((messenges.get(position).getMessage()));
 
         if (messenges.get(position).getSender().contains(user.getDisplayName())) {
             holder.card.setCardBackgroundColor(Color.GREEN);

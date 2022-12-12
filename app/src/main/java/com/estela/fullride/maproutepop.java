@@ -15,9 +15,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -25,19 +23,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,7 +44,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class mapProfile extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMapLongClickListener {
+public class maproutepop extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMapLongClickListener {
 
     private GoogleMap googleMap;
     private static int AUTOCOMPLETE_REQUEST_CODE = 1;
@@ -82,9 +76,9 @@ public class mapProfile extends AppCompatActivity implements OnMapReadyCallback,
             if (input != null) {
                 String loc = input.getText().toString();
                 if (loc == null) {
-                    Toast.makeText(mapProfile.this, "Type any location name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(maproutepop.this, "Type any location name", Toast.LENGTH_SHORT).show();
                 } else {
-                    Geocoder g = new Geocoder(mapProfile.this, Locale.getDefault());
+                    Geocoder g = new Geocoder(maproutepop.this, Locale.getDefault());
                     try {
                         List<Address> list = g.getFromLocationName(loc, 1);
                         if (list.size() > 0) {
@@ -129,7 +123,7 @@ public class mapProfile extends AppCompatActivity implements OnMapReadyCallback,
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(mapProfile.this,
+                                ActivityCompat.requestPermissions(maproutepop.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION);
                             }
@@ -225,11 +219,11 @@ public class mapProfile extends AppCompatActivity implements OnMapReadyCallback,
 
                                                         if (task1.isComplete()) {
 
-                                                            Toast.makeText(mapProfile.this, "Your driver starting point has been set", Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(maproutepop.this, "Your driver starting point has been set", Toast.LENGTH_LONG).show();
 
                                                         } else {
 
-                                                            Toast.makeText(mapProfile.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(maproutepop.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
 
                                                         }
                                                     });
@@ -242,10 +236,10 @@ public class mapProfile extends AppCompatActivity implements OnMapReadyCallback,
                                                     (task1 -> {
                                                         if (task1.isComplete()) {
 
-                                                            Toast.makeText(mapProfile.this, "Your driver starting point has been set", Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(maproutepop.this, "Your driver starting point has been set", Toast.LENGTH_LONG).show();
                                                         } else {
 
-                                                            Toast.makeText(mapProfile.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(maproutepop.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
 
                                                         }
                                                     });

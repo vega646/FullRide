@@ -11,6 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
@@ -18,6 +27,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
     private CardView c;
     private ArrayList<Requestitem> list2;
     final RequestAdapter.OnItemClickListener ac;
+    private int pos;
 
     public RequestAdapter(ArrayList<Requestitem> l, RequestAdapter.OnItemClickListener listen){
         list2 = l;
@@ -41,10 +51,29 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
     @Override
     public void onBindViewHolder(@NonNull viewH holder, int position) {
 
-        holder.date.setText(list2.get(position).GetDate());
-        holder.name.setText(list2.get(position).GetName());
-        holder.major.setText(list2.get(position).GetMajor());
-        holder.bindData(list2.get(position));
+        pos = position;
+        FirebaseDatabase.getInstance().getReference().child("Requests")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                            holder.date.setText(list2.get(position).getTime());
+                            holder.name.setText(list2.get(position).get_name());
+                            holder.major.setText(list2.get(position).get_major());
+                            holder.bindData(list2.get(position));
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+                });
+
 
     }
 
@@ -73,13 +102,15 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
                 @Override
                 public void onClick(View v) {
 
+                    list2.get(pos).setActedon(true);
+
                 }
             });
 
             deny.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    c = null;
+                    list2.remove(list2.get(pos-1));
                 }
             });
         }

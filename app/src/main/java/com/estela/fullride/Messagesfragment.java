@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,17 +93,29 @@ public class Messagesfragment extends Fragment {
         reciclemsg = getView().findViewById(R.id.recicle_mesg);
         messenges_List=new ArrayList<>();
         sv = getView().findViewById(R.id.scrollView2);
-//        adaptor_m = new Adapter_Messages(this,messenges_List);
-//        llman_=(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
-//
-//        reciclemsg.setLayoutManager(llman_);
-//        reciclemsg.setAdapter(adaptor_m);
-//
-//        send_btn.setOnClickListener(v -> click());
+        adaptor_m = new Adapter_Messages(this.getContext(),messenges_List);
+        llman_=(new LinearLayoutManager(this.getContext(), RecyclerView.VERTICAL,false));
+
+        reciclemsg.setLayoutManager(llman_);
+        reciclemsg.setAdapter(adaptor_m);
+
+        send_btn.setOnClickListener(v -> click());
 
 
     }
+    private void click() {
+        mess = getView().findViewById(R.id.Mensage_in);
+        DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm a ");
 
+        String Name = user.getDisplayName();
+
+
+        String Date = df.format(System.currentTimeMillis());
+        Messages mensage = new Messages(Name, Date,mess.getText().toString(), user.getUid());
+
+        mess.setText("");
+        mess.setHint(" ");
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class DriverMapsFragment extends Fragment implements OnMapReadyCallback{
     private MarkerOptions marker;
     private Vector<Profile> mprofiles;
     LatLng l = new LatLng(28.598797, -81.358315);
-
+    ArrayList<String> slist = new ArrayList<String>();
 
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
@@ -90,6 +91,8 @@ public class DriverMapsFragment extends Fragment implements OnMapReadyCallback{
             mapFragment.getMapAsync(callback);
         }
 
+        Map<String, String> mMarkerMap = new HashMap<>();
+
         FirebaseDatabase.getInstance().getReference().child("_riderloc")
 
                 .addValueEventListener(new ValueEventListener() {
@@ -104,17 +107,26 @@ public class DriverMapsFragment extends Fragment implements OnMapReadyCallback{
                             double ll2 = snapshot.child("_long").getValue(double.class);
                             String l =  snapshot.child("creator").getValue(String.class);
 
-                            LatLng lng = new LatLng(ll, ll2);
-                            map.addMarker(new MarkerOptions().position(lng));
-                            Markersm mmmm = new Markersm(ll,ll2,l);
-                            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                                @Override
-                                public boolean onMarkerClick(@NonNull Marker marker) {
-                                    showselected(new Profile(l));
-                                    return false;
-                                }
-                            });;
+                            slist.add(l);
 
+                            LatLng lng = new LatLng(ll, ll2);
+
+
+                            for (int i = 0; i < slist.size(); i++) {
+                                int finalI = i;
+                                Marker m = map.addMarker(new MarkerOptions()
+                                        .position(lng));
+                                int finalI1 = i;
+                                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                 @Override
+                                    public boolean onMarkerClick(@NonNull Marker marker) {
+
+                                        showselected(new Profile(slist.get(finalI1)));
+                                        return false;
+                                     }
+                                });
+
+                            }
                         }
                     }
                     @Override

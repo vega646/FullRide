@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class RiderMapsFragment extends Fragment implements OnMapReadyCallback {
@@ -39,6 +40,7 @@ public class RiderMapsFragment extends Fragment implements OnMapReadyCallback {
     private ActivityMapsBinding binding;
     private GoogleMap map;
     LatLng l = new LatLng(28.598797, -81.358315);
+    ArrayList<String> slist = new ArrayList<String>();
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -55,7 +57,8 @@ public class RiderMapsFragment extends Fragment implements OnMapReadyCallback {
         public void onMapReady(GoogleMap googleMap) {
 
             map = googleMap;
-
+            CameraUpdate c = CameraUpdateFactory.newLatLngZoom(l, 10);
+            map.animateCamera(c);
         }
     };
 
@@ -81,27 +84,39 @@ public class RiderMapsFragment extends Fragment implements OnMapReadyCallback {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
                             double ll = snapshot.child("_lat").getValue(double.class);
                             double ll2 = snapshot.child("_long").getValue(double.class);
                             String l =  snapshot.child("creator").getValue(String.class);
-//                            LatLng l = new LatLng(ll, ll2);
-//                            MarkerOptions mark = new MarkerOptions().position(l);
-//                            map.addMarker(mark);
-                            LatLng lng = new LatLng(ll, ll2);
-                            map.addMarker(new MarkerOptions().position(lng));
 
-                            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                                @Override
-                                public boolean onMarkerClick(@NonNull Marker marker) {
-                                    showselected(new Profile(l));
-                                    return false;
-                                }
-                            });
-                        }
+                            slist.add(l);
+
+                            LatLng lng = new LatLng(ll, ll2);
+
+
+                            for (int i = 0; i < slist.size(); i++) {
+                                Marker m = map.addMarker(new MarkerOptions()
+                                        .position(lng));
+                                int finalI1 = i;
+                                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                    @Override
+                                    public boolean onMarkerClick(@NonNull Marker marker) {
+
+                                        showselected(new Profile(slist.get(finalI1)));
+                                        return false;
+                                    }
+                                });
+
+                            }
                     }
+
+                }
+
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
+
                 });
     }
 

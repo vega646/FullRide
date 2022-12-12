@@ -2,19 +2,19 @@ package com.estela.fullride;
 
 public class Messages {private String sender;
     private String date;
-    private String messenger;
+    private String message;
 
 
-    private String uid;
+    private String receiverid;
 
 
     public Messages(){};
 
-    public Messages(String sender, String date, String messenger,String uid) {
+    public Messages(String sender, String date, String message,String receiverid) {
         this.sender = sender;
         this.date = date;
-        this.messenger = messenger;
-        this.uid = uid;
+        this.message = message;
+        this.receiverid = receiverid;
     }
 
 
@@ -36,19 +36,19 @@ public class Messages {private String sender;
         this.date = date;
     }
 
-    public String getMessenger() {
-        return messenger;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessenger(String messenger) {
-        this.messenger = messenger;
+    public void setMessage(String message) {
+        this.message = message;
     }
-    public String getUid() {
-        return uid;
+    public String getReceiverid() {
+        return receiverid;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setReceiverid(String receiverid) {
+        this.receiverid = receiverid;
     }
 
 }
