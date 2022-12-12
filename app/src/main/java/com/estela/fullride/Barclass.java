@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -22,35 +23,51 @@ public class Barclass extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         getSupportActionBar().hide();
+
         setContentView(R.layout.activity_maps);
+
         v = findViewById(R.id.bottomNavigationView);
 
         if (v != null)
         {
-            showselected(new Profile());
+            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            showselected(new Profile(userID));
 
             v.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                     if (item.getItemId() == R.id.find){
+
+                        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                         FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
+
                             @Override
+
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.hasChild("driver")) {
+
+                                if(snapshot.child(userID).child("_status").getValue(String.class).equals("driver")) {
+
                                     showselected(new DriverMapsFragment());
                                 }
-                                else if (snapshot.hasChild("customer")) {
+
+                                else if (snapshot.child(userID).child("_status").getValue(String.class).equals("rider")) {
                                     showselected(new RiderMapsFragment());
                                 }
                             }
 
+
                             @Override
+
                             public void onCancelled(@NonNull DatabaseError error) {
 
                             }
+
                         });
 
                     }
@@ -62,9 +79,13 @@ public class Barclass extends AppCompatActivity {
                     if (item.getItemId() == R.id.rh){
                         showselected(new RideHistory());
                     }
+
                     if (item.getItemId() == R.id.profile){
-                        showselected(new Profile());
+                        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                        showselected(new Profile(userID));
                     }
+
                     if (item.getItemId() == R.id.mes){
                         showselected(new Messagesfragment());
                     }
@@ -75,9 +96,13 @@ public class Barclass extends AppCompatActivity {
         }
 
     }
+
     private void showselected(Fragment f){
+
         getSupportFragmentManager().beginTransaction().replace(R.id.cont, f)
+
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+
                 .commit();
 
     }

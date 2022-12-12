@@ -33,36 +33,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //google
     int REQUEST_CODE = 123456;
     GoogleSignInClient mGoogleSignInClient;
+
     //clickable objects
+
     private TextView _forgotPass, _create_User;
     private Button _google_button;
     private Button _login;
+
     //Firebase authentication
     private FirebaseAuth _authent;
     private FirebaseUser _userdata;
     private final FirebaseDatabase _database = FirebaseDatabase.getInstance();
+
     //textObjects
     private EditText _email, _password;
-     private DatabaseReference refdata;
+    private DatabaseReference refdata;
     private DatabaseReference userefdata = FirebaseDatabase.getInstance().getReference().child("users");
 
+
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.user_login);
         getSupportActionBar().hide();
 
         //google
+
         GoogleSignInOptions _google_Signin_Option = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
         //fields
+
         _create_User = findViewById(R.id.create_an_account);
         _forgotPass = findViewById(R.id.forgota_password);
         _authent = FirebaseAuth.getInstance();
@@ -71,36 +77,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         _password = findViewById(R.id.TextPass);
         _google_button = findViewById(R.id._googlebuton);
         _userdata = FirebaseAuth.getInstance().getCurrentUser();
+
         //OnClick
 
         _create_User.setOnClickListener(this);
         _forgotPass.setOnClickListener(this);
         _login.setOnClickListener(this);
         _google_button.setOnClickListener(this);
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, _google_Signin_Option);
 
-//        _authent.signInAnonymously()
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "signInAnonymously:success");
-//                            FirebaseUser user = _authent.getCurrentUser();
-//                            UI_Update();
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "signInAnonymously:failure", task.getException());
-//                            Toast.makeText(MainActivity.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                            UI_Update();
-//                        }
-//                    }
-//                });
     }
 
     @Override
+
     public void onClick(View v) {
         if (v.getId() == _login.getId()) {
             firebase_user_credentials();
@@ -132,11 +121,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             _email.requestFocus();
             return;
         }
+
         if (!Patterns.EMAIL_ADDRESS.matcher(_EMAIL).matches()) {
             _email.setError("Please provide a valid Email");
             _email.requestFocus();
             return;
         }
+
         if (_PASSWORD.isEmpty()) {
 
             _password.setError("You need to enter a password  \nhint: Password#123 ");
@@ -145,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         }
+
         if (_PASSWORD.length() < 6) {
 
             _password.setError("You need to enter a password with at least 8 characters \nhint: P2345678 ");
@@ -154,11 +146,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         _authent.signInWithEmailAndPassword(_EMAIL, _PASSWORD).addOnCompleteListener(task -> {
+
             if (task.isSuccessful()) {
+
                 while (_userdata==null){
+
                     _userdata=  _authent.getCurrentUser();
 
                 }
+
                 if (_userdata.isEmailVerified()) {
 
                     startActivity(new Intent(MainActivity.this, Barclass.class));
@@ -176,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
     private void signin() {
 
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -184,7 +181,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -207,12 +206,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Firebase_google(String idToken) {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+
         _authent.signInWithCredential(credential)
+
                 .addOnCompleteListener(this, task -> {
+
                     if (task.isSuccessful()) {
 
                         UI_Update();
-                        User_information data = new User_information(_authent.getCurrentUser().getDisplayName()," ", _authent.getCurrentUser().getEmail(),"","", "");
+                        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                        User_information data = new User_information(_authent.getCurrentUser().getDisplayName()," ", _authent.getCurrentUser().getEmail(),"","", "","");
                         _database.getReference("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
                                 .getUid()).setValue(data);
                     }
@@ -223,17 +227,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void UI_Update() {
 
-
         Intent intent_ = new Intent(MainActivity.this, Barclass.class);
         startActivity(intent_);
         MainActivity.this.finish();
         Toast.makeText(this, "Welcome back "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
 
-
-
     }
 
     @Override
+
     public void onStart() {
 
         _userdata = _authent.getCurrentUser();
@@ -243,7 +245,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.finish();
         }
         super.onStart();
-
 
     }
 }

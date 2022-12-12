@@ -45,6 +45,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -52,20 +53,14 @@ import java.util.Objects;
 public class mapProfile extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMapLongClickListener {
 
     private GoogleMap googleMap;
-    private Place p;
-    private PlaceSelectionListener pl;
     private static int AUTOCOMPLETE_REQUEST_CODE = 1;
     private LocationManager locationManager;
     private final FirebaseDatabase _database = FirebaseDatabase.getInstance("https://full-ride-59aee-default-rtdb.firebaseio.com/");
     private String providr;
-    // Set the fields to specify which types of place data to
-    // return after the user has made a selection.
-    private LatLng wp = new LatLng(28.598797,-81.358315);
-    private MapFragment mapFragment;
+    private Marker marker;
     EditText input;
     ImageView search;
-
-    // Start the autocomplete intent.
+    private  List<Profile> proflist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,16 +68,11 @@ public class mapProfile extends AppCompatActivity implements OnMapReadyCallback,
         setContentView(R.layout.popr);
         search = findViewById(R.id.searcrh);
         input = findViewById(R.id.input);
+        proflist = new ArrayList<>();
         checkLocationPermission();
         locationManager  = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         providr = locationManager.getBestProvider(new Criteria(), false);
-//
-//        if (ContextCompat.checkSelfPermission(mapProfile.this, Manifest.permission.ACCESS_FINE_LOCATION)
-//        != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(mapProfile.this, new String[]{
-//                    Manifest.permission.ACCESS_FINE_LOCATION
-//            },100);
-//        }
+
         SupportMapFragment m = SupportMapFragment.newInstance();
         getSupportFragmentManager().beginTransaction().add(R.id.container2, m).commit();
         if (m != null) {
@@ -112,13 +102,6 @@ public class mapProfile extends AppCompatActivity implements OnMapReadyCallback,
                 }
             }
         });
-//        String api = getString(R.string.API_KEY);
-//        map.addMarker(new MarkerOptions().position(wp).title("Marker in Winter Park"));
-//
-//
-//        Places.initialize(getApplicationContext(), api, Locale.US);
-//
-//        PlacesClient p = Places.createClient(this);
 
 
 
@@ -224,47 +207,57 @@ public class mapProfile extends AppCompatActivity implements OnMapReadyCallback,
                     });
 
                     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
+                    FirebaseDatabase.getInstance("https://full-ride-59aee-default-rtdb.firebaseio.com/").getReference("users").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            List<Markersm> listm;
+                            listm = new ArrayList<>();
+                            Markersm merk = new Markersm(latLng.latitude, latLng.longitude, userID);
 
-                            String stat = (String)snapshot.child(userID).child("_status").getValue();
-                            if(snapshot.child(userID).child("_status").getValue(String.class).equals("driver")) {
-                                _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("_driverloc").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
-                                                .getUid()).setValue(latLng)
-                                        .addOnCompleteListener
-                                                (task1 -> {
-                                                    if (task1.isComplete()) {
 
-                                                        Toast.makeText(mapProfile.this, "Your driver starting point has been set", Toast.LENGTH_LONG).show();
-                                                    } else {
+                                if (snapshot.child(userID).child("_status").getValue(String.class).equals("driver")) {
+                                    _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("_driverloc").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
+                                                    .getUid()).setValue(merk)
 
-                                                        Toast.makeText(mapProfile.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
+                                            .addOnCompleteListener
 
-                                                    }
-                                                });
+                                                    (task1 -> {
+
+                                                        if (task1.isComplete()) {
+
+                                                            Toast.makeText(mapProfile.this, "Your driver starting point has been set", Toast.LENGTH_LONG).show();
+
+                                                        } else {
+
+                                                            Toast.makeText(mapProfile.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
+
+                                                        }
+                                                    });
+                                }
+
+                                else if (snapshot.child(userID).child("_status").getValue(String.class).equals("rider")) {
+                                    _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("_riderloc").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
+                                                    .getUid()).setValue(merk)
+                                            .addOnCompleteListener
+                                                    (task1 -> {
+                                                        if (task1.isComplete()) {
+
+                                                            Toast.makeText(mapProfile.this, "Your driver starting point has been set", Toast.LENGTH_LONG).show();
+                                                        } else {
+
+                                                            Toast.makeText(mapProfile.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
+
+                                                        }
+                                                    });
+                                }
                             }
-                            else if (snapshot.child(userID).child("_status").getValue(String.class).equals("rider")) {
-                                _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("_riderloc").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
-                                                .getUid()).setValue(latLng)
-                                        .addOnCompleteListener
-                                                (task1 -> {
-                                                    if (task1.isComplete()) {
 
-                                                        Toast.makeText(mapProfile.this, "Your driver starting point has been set", Toast.LENGTH_LONG).show();
-                                                    } else {
 
-                                                        Toast.makeText(mapProfile.this, "Something went wrong. Try again.", Toast.LENGTH_LONG).show();
+                            @Override
+                            public void onCancelled (@NonNull DatabaseError error){
 
-                                                    }
-                                                });
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
                     });
                 }
             });
@@ -279,35 +272,6 @@ public class mapProfile extends AppCompatActivity implements OnMapReadyCallback,
 //            googleMap.getUiSettings().setRotateGesturesEnabled(false);
 //            googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 
-//        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
-//
-//                new LatLng(28.598797,-81.358315),
-//                new LatLng(28.598797,-81.358315)
-//        ));
-//
-//        autocompleteFragment.setCountries("US");
-//        // Specify the types of place data to return.
-//        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
-//
-//        // Set up a PlaceSelectionListener to handle the response.
-//        pl = new PlaceSelectionListener() {
-//            @Override
-//            public void onPlaceSelected(@NonNull Place place) {
-//                // TODO: Get info about the selected place.
-//                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-//            }
-//
-//
-//            @Override
-//            public void onError(@NonNull Status status) {
-//                // TODO: Handle the error.
-//                Log.i(TAG, "An error occurred: " + status);
-//            }
-//        };
-//
-//        autocompleteFragment.setOnPlaceSelectedListener(pl);
-
-//    }
 }
 
 

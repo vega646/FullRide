@@ -29,115 +29,91 @@ import com.google.firebase.database.ValueEventListener;
  * create an instance of this fragment.
  */
 public class Profile extends Fragment {
-//
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    private FirebaseUser user1;
-//
-    public Profile() {
-        // Required empty public constructor
-    }
-//
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-//     * @return A new instance of fragment Profile.
-//     */
-//    // TODO: Rename and change types and number of parameters
-//    public static Profile newInstance(String param1, String param2) {
-//        Profile fragment = new Profile();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_profile, container, false);
-//    }
 
-    private TextView  major, name, m, t, w, th, f, s, sn ;
+    private TextView  major, name;
     private Button sch, rou, logo;
-    private CardView sche,rout ;
-    private EditText m1, t1, w1, th1, f1, s1, sn1, m2, t2, w2, th2, f2, s2, sn2;
+    String profid;
+    double lat, longi;
 
+    public Profile() {}
 
+//    public String getProfid() {
+//        return profid;
+//    }
+//
+//    public void setProfid(String profid) {
+//        this.profid = profid;
+//    }
+
+    public Profile(String profid) {
+
+        this.profid = profid;
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_profile, container, false);
+
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
+
         major = getView().findViewById(R.id.pmajor);
         name = getView().findViewById(R.id.pname);
-        user1 = FirebaseAuth.getInstance().getCurrentUser();
         sch = (Button) getView().findViewById(R.id.addsch);
         rou = (Button) getView().findViewById(R.id.addr);
         logo = (Button) getView().findViewById(R.id.logoutb);
-        String r = "rider";
-        String d = "driver";
 
-        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
+
             @Override
+
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.child(userID).child("_status").getValue(String.class).equals("driver")) {
-                    major.setText(snapshot.child(userID).child("_major").getValue(String.class));
-                    name.setText(snapshot.child(userID).child("_firstname").getValue(String.class) + " " + snapshot.child(userID).child("_lastname").getValue(String.class));
+                if(snapshot.child(profid).child("_status").getValue(String.class).equals("driver")) {
+
+                    major.setText(snapshot.child(profid).child("_major").getValue(String.class));
+                    name.setText(snapshot.child(profid).child("_firstname").getValue(String.class) + " " + snapshot.child(profid).child("_lastname").getValue(String.class));
+
                 }
-                else if (snapshot.child(userID).child("_status").getValue(String.class).equals("rider")) {
-                    major.setText(snapshot.child(userID).child("_major").getValue(String.class));
-                    name.setText(snapshot.child(userID).child("_firstname").getValue(String.class) + " " + snapshot.child(userID).child("_lastname").getValue(String.class));
+
+                else if (snapshot.child(profid).child("_status").getValue(String.class).equals("rider")) {
+
+                    major.setText(snapshot.child(profid).child("_major").getValue(String.class));
+                    name.setText(snapshot.child(profid).child("_firstname").getValue(String.class) + " " + snapshot.child(profid).child("_lastname").getValue(String.class));
+
                 }
             }
 
             @Override
+
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
 
-
-
         sch.setOnClickListener(new View.OnClickListener() {
+
             @Override
+
             public void onClick(View v) {
+
                 SchedulePop s = new SchedulePop();
 
                 s.show(getActivity().getSupportFragmentManager(), "ScheduleDialog");
             }
+
         });
 
         rou.setOnClickListener(new View.OnClickListener() {
+
             @Override
+
             public void onClick(View v) {
 
                 Intent i = new Intent(v.getContext(),mapProfile.class);
@@ -147,18 +123,26 @@ public class Profile extends Fragment {
         });
 
         logo.setOnClickListener(new View.OnClickListener() {
+
             @Override
+
             public void onClick(View v) {
+
                 FirebaseAuth.getInstance().signOut();
+
                 change();
+
                 return;
+
             }
+
         });
+
     }
     private void change(){
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
 
+        Intent intent = new Intent(getActivity(), ChooseUser.class);
+        startActivity(intent);
 
     }
 }

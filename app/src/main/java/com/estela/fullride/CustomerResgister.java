@@ -130,7 +130,9 @@ private String _status;
         _authentication.createUserWithEmailAndPassword(_Email, _Password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        User_information users = new User_information(_FirstName, _LastName,  _Email, _Password, _Major, _status);
+                        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                        User_information users = new User_information(_FirstName, _LastName,  _Email, _Password, _Major, _status, userID);
                         _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
                                         .getUid()).setValue(users)
                                 .addOnCompleteListener
