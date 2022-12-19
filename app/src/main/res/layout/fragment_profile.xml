@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
     tools:context=".Profile">
 
 
@@ -12,6 +14,7 @@
         android:layout_width="386dp"
         android:layout_height="97dp"
         android:layout_marginTop="40dp"
+        android:backgroundTint="@color/white"
         app:cardCornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.36"
@@ -20,21 +23,21 @@
 
         <TextView
             android:id="@+id/pmajor"
-            android:textSize="18sp"
             android:layout_width="138dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
             android:layout_marginTop="50dp"
-            android:fontFamily="@font/alata" />
+            android:fontFamily="@font/alata"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/pname"
             android:layout_width="137dp"
             android:layout_height="26dp"
-            android:textSize="20sp"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/alata" />
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/alata"
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -49,11 +52,11 @@
             android:id="@+id/logoutb"
             android:layout_width="80dp"
             android:layout_height="34dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="289dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/Logout"
             android:textAllCaps="false"
-            android:textSize="11sp"
-            android:text="@string/Logout" />
+            android:textSize="11sp" />
 
     </androidx.cardview.widget.CardView>
 
@@ -114,6 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:backgroundTint="@color/white"
                 app:cardCornerRadius="15dp">
 
 
@@ -233,7 +237,7 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="234dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="35dp"
@@ -242,12 +246,23 @@
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <ImageButton
+                android:id="@+id/infob"
+                android:layout_width="29dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="-23dp"
+                android:backgroundTint="@color/white"
+                android:visibility="visible"
+                app:tint="@color/fs"
+                android:src="@android:drawable/ic_menu_info_details" />
+
             <Button
                 android:id="@+id/addr"
                 android:layout_width="wrap_content"
                 android:layout_height="37dp"
                 android:layout_marginLeft="283dp"
-                android:layout_marginTop="-29dp"
+                android:layout_marginTop="-34dp"
                 android:fontFamily="@font/alata"
                 android:text="@string/add"
                 android:textAllCaps="false"
@@ -255,36 +270,45 @@
                 app:cornerRadius="8dp" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/rcv"
-                android:layout_width="386dp"
-                android:layout_height="97dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="15dp">
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                app:cardCornerRadius="8dp">
 
                 <fragment
                     android:id="@+id/map4"
                     android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:context=".RouteMap"/>
-
+                    android:layout_width="380dp"
+                    android:layout_height="150dp" />
 
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp" />
 
             <Button
                 android:id="@+id/sendreqb"
                 android:layout_width="300dp"
-                android:layout_marginBottom="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:text="@string/sendr"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/sendmb"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="70dp"
+                android:backgroundTint="@color/white"
+                android:text="@string/sendm"
                 android:textAllCaps="false"
-                android:text="@string/sendr" />
+                android:textColor="@color/fs" />
 
         </LinearLayout>
     </ScrollView>

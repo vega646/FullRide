@@ -9,26 +9,35 @@
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/activity_register_user.xml" value="0.33" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/chat_creen.xml" value="0.365625" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/chat_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/chat_message.xml" value="0.25" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/chatfrag_item.xml" value="0.25" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/dlogin.xml" value="0.17983789260385005" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/driver_login.xml" value="0.1" />
-        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/driver_map_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/driver_map_fragment.xml" value="0.22" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/driver_register.xml" value="0.32083333333333336" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/driverrider.xml" value="0.25" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_find.xml" value="0.33" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_maps.xml" value="0.33" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_messages.xml" value="0.25" />
-        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_requests.xml" value="0.3120471014492754" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_ride_history.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/fragment_schedule_pop.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/info_pop.xml" value="0.22" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/info_pop2.xml" value="0.29483695652173914" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/loginpage.xml" value="0.33" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/maps.xml" value="0.13768115942028986" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/message_item.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/messright.xml" value="0.17755825734549138" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/popr.xml" value="0.33" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/popup.xml" value="0.33" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/request_accepted.xml" value="0.25" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/request_item.xml" value="0.25" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/request_popup.xml" value="0.31979166666666664" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/rider_login.xml" value="0.365625" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/rider_map_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/rider_register.xml" value="0.29981884057971014" />
+        <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/send_message_chat.xml" value="0.20742753623188406" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/layout/user_login.xml" value="0.1" />
         <entry key="..\:/Users/estel/AndroidStudioProjects/FullRide2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1814814814814815" />
       </map>

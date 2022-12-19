@@ -44,19 +44,15 @@ public class RiderMapsFragment extends Fragment implements OnMapReadyCallback {
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
         @Override
         public void onMapReady(GoogleMap googleMap) {
 
             map = googleMap;
+
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
+
+            googleMap.getUiSettings().isZoomGesturesEnabled();
+
             CameraUpdate c = CameraUpdateFactory.newLatLngZoom(l, 10);
             map.animateCamera(c);
         }
@@ -73,13 +69,18 @@ public class RiderMapsFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
+
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map3);
+
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
-        FirebaseDatabase.getInstance().getReference().child("_driverloc")
+
+
+        FirebaseDatabase.getInstance().getReference().child("driverloc")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -95,6 +96,7 @@ public class RiderMapsFragment extends Fragment implements OnMapReadyCallback {
 
 
                             for (int i = 0; i < slist.size(); i++) {
+                                int finalI = i;
                                 Marker m = map.addMarker(new MarkerOptions()
                                         .position(lng));
                                 int finalI1 = i;
@@ -108,7 +110,7 @@ public class RiderMapsFragment extends Fragment implements OnMapReadyCallback {
                                 });
 
                             }
-                    }
+                        }
 
                 }
 
@@ -123,10 +125,8 @@ public class RiderMapsFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.getUiSettings().isZoomGesturesEnabled();
-        CameraUpdate c = CameraUpdateFactory.newLatLngZoom(l, 10);
-        map.animateCamera(c);
+
+        map = googleMap;
 
     }
 

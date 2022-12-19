@@ -2,57 +2,35 @@ package com.estela.fullride;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RideHistory#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class RideHistory extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    RecyclerView rv;
+    RecyclerView.Adapter adapter;
+    ArrayList<RequestAccepted>requestitemsaccted;
 
     public RideHistory() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RideHistory.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RideHistory newInstance(String param1, String param2) {
-        RideHistory fragment = new RideHistory();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -61,4 +39,67 @@ public class RideHistory extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ride_history, container, false);
     }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+    {
+
+        rv  =  getView().findViewById(R.id.rvrideh);
+
+        rv.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        requestitemsaccted = new ArrayList<>();
+
+
+        adapter = new RequestAccepterAdapter(requestitemsaccted, new RequestAccepterAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(RequestAccepted ev) {
+
+            }
+        });
+
+        rv.setAdapter(adapter);
+
+
+        createrequest2();
+    }
+    private void createrequest2() { DatabaseReference userefdata = FirebaseDatabase.getInstance().getReference().child("RequestsAccepted");
+
+        userefdata.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                for (DataSnapshot snap : snapshot.getChildren()) {
+
+                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    String drivid = snap.child("driverid").getValue(String.class);
+
+                    if (Objects.equals(drivid, userID)){
+
+                        RequestAccepted evt = new RequestAccepted(snap.child("_name").getValue(String.class),
+                                snap.child("_major").getValue(String.class),
+                                snap.child("time").getValue(String.class),
+                                snap.child("riderid").getValue(String.class),
+                                snap.child("driverid").getValue(String.class),
+                                false
+                        );
+
+                        requestitemsaccted.add(evt);
+
+
+                    }
+                }
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });}
+
 }

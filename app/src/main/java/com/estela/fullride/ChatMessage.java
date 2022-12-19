@@ -1,6 +1,6 @@
 package com.estela.fullride;
 
-public class Messages {private String sender;
+public class ChatMessage {private String sender;
     private String date;
     private String message;
 
@@ -8,11 +8,10 @@ public class Messages {private String sender;
     private String receiverid;
 
 
-    public Messages(){};
+    public ChatMessage(){};
 
-    public Messages(String sender, String date, String message,String receiverid) {
+    public ChatMessage(String sender, String message, String receiverid) {
         this.sender = sender;
-        this.date = date;
         this.message = message;
         this.receiverid = receiverid;
     }

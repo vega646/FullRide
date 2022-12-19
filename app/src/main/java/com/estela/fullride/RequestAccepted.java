@@ -2,9 +2,7 @@ package com.estela.fullride;
 
 import java.io.Serializable;
 
-public class Requestitem implements Serializable {
-
-    private String _name;
+public class RequestAccepted implements Serializable { private String _name;
     private String _major;
     private  String time;
     private String riderid;
@@ -60,7 +58,7 @@ public class Requestitem implements Serializable {
         this.riderid = riderid;
     }
 
-    public Requestitem(String name, String major, String _time, String _riderid, String _driverid, Boolean _actedon){
+    public RequestAccepted(String name, String major, String _time, String _riderid, String _driverid, Boolean _actedon){
         _name = name;
         _major = major;
         time = _time;
@@ -68,5 +66,4 @@ public class Requestitem implements Serializable {
         driverid = _driverid;
         actedon = _actedon;
     }
-
 }

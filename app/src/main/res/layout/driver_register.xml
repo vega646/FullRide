@@ -6,62 +6,6 @@
     android:background="@drawable/back"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/register_email"
-        style="@style/Widget.AppCompat.AutoCompleteTextView"
-        android:layout_width="209dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="136dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/example_email"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        android:singleLine="true"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_lastname"
-        tools:ignore="TextContrastCheck" />
-
-    <EditText
-        android:id="@+id/register_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/password_example"
-        android:inputType="textPassword|textWebPassword"
-        android:minHeight="48dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_email"
-        app:layout_constraintVertical_bias="0.145" />
-
-    <Button
-        android:id="@+id/register_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:backgroundTint="#F6A730"
-        android:clickable="true"
-        android:foregroundTint="#F6A730"
-        android:onClick="onClick"
-        android:text="@string/register"
-        android:textColor="@color/black"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_password"
-        tools:ignore="TextContrastCheck,TextContrastCheck" />
-
     <ImageButton
         android:id="@+id/register_back"
         android:layout_width="77dp"
@@ -83,8 +27,10 @@
         android:id="@+id/register_firstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="128dp"
         android:ems="10"
+        android:fontFamily="@font/alata"
+
         android:hint="First Name"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -92,9 +38,81 @@
         android:textColorHint="@color/black"
         android:textColorLink="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/register_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#F6A730"
+        android:clickable="true"
+        android:foregroundTint="#F6A730"
+        android:onClick="onClick"
+        android:text="@string/register"
+        android:textColor="@color/black"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_password"
+        tools:ignore="TextContrastCheck,TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/major"
+        android:layout_width="249dp"
+        android:layout_height="50dp"
+        android:fontFamily="@font/alata"
+        android:hint="@string/Major"
+        android:textColor="@color/black"
+
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/register_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_lastname"
+        app:layout_constraintVertical_bias="0.542" />
+
+    <EditText
+        android:id="@+id/register_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:fontFamily="@font/alata"
+        android:hint="@string/password_example"
+        android:inputType="textPassword|textWebPassword"
+        android:minHeight="48dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_email"
+        app:layout_constraintVertical_bias="0.201" />
+
+    <EditText
+        android:id="@+id/register_email"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="247dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="132dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:fontFamily="@font/alata"
+        android:hint="@string/example_email"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_lastname"
+        tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/register_lastname"
@@ -102,28 +120,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:ems="10"
+        android:fontFamily="@font/alata"
+
         android:hint="@string/last_name"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_firstname" />
 
-
-    <EditText
-        android:id="@+id/major"
-        android:layout_width="213dp"
-        android:hint="@string/Major"
-        android:layout_height="50dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/register_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_lastname"/>
 
     <ProgressBar
         android:id="@+id/reset_progressBar"

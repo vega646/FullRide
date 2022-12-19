@@ -6,6 +6,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -15,7 +16,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -55,6 +58,7 @@ public class maproutepop extends AppCompatActivity implements OnMapReadyCallback
     EditText input;
     ImageView search;
     private  List<Profile> proflist;
+    private ImageButton bck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,7 @@ public class maproutepop extends AppCompatActivity implements OnMapReadyCallback
         search = findViewById(R.id.searcrh);
         input = findViewById(R.id.input);
         proflist = new ArrayList<>();
-        checkLocationPermission();
+//        checkLocationPermission();
         locationManager  = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         providr = locationManager.getBestProvider(new Criteria(), false);
 
@@ -97,84 +101,91 @@ public class maproutepop extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
+        bck = findViewById(R.id.bac3);
+        bck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), MainActivity.class));
 
-
-
-    }
-
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
-    public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.title_location_permission)
-                        .setMessage(R.string.text_location_permission)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(maproutepop.this,
-                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION);
-                            }
-                        })
-                        .create()
-                        .show();
-
-
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
             }
-            return false;
-        } else {
-            return true;
-        }
+        });
+
+
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-
-                        //Request location updates:
-                        locationManager.requestLocationUpdates(providr, 0, 0, this);
-                    }
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-
-                }
-                return;
-            }
-
-        }
-    }
+//
+//    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+//
+//    public boolean checkLocationPermission() {
+//        if (ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.ACCESS_FINE_LOCATION)
+//                != PackageManager.PERMISSION_GRANTED) {
+//
+//            // Should we show an explanation?
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+//
+//                // Show an explanation to the user *asynchronously* -- don't block
+//                // this thread waiting for the user's response! After the user
+//                // sees the explanation, try again to request the permission.
+//                new AlertDialog.Builder(this)
+//                        .setTitle(R.string.title_location_permission)
+//                        .setMessage(R.string.text_location_permission)
+//                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                //Prompt the user once explanation has been shown
+//                                ActivityCompat.requestPermissions(maproutepop.this,
+//                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+//                                        MY_PERMISSIONS_REQUEST_LOCATION);
+//                            }
+//                        })
+//                        .create()
+//                        .show();
+//
+//
+//            } else {
+//                // No explanation needed, we can request the permission.
+//                ActivityCompat.requestPermissions(this,
+//                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+//                        MY_PERMISSIONS_REQUEST_LOCATION);
+//            }
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode,
+//                                           String permissions[], int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+//        switch (requestCode) {
+//            case MY_PERMISSIONS_REQUEST_LOCATION: {
+//                // If request is cancelled, the result arrays are empty.
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                    // permission was granted, yay! Do the
+//                    // location-related task you need to do.
+//                    if (ContextCompat.checkSelfPermission(this,
+//                            Manifest.permission.ACCESS_FINE_LOCATION)
+//                            == PackageManager.PERMISSION_GRANTED) {
+//
+//                        //Request location updates:
+//                        locationManager.requestLocationUpdates(providr, 0, 0, this);
+//                    }
+//
+//                } else {
+//
+//                    // permission denied, boo! Disable the
+//                    // functionality that depends on this permission.
+//
+//                }
+//                return;
+//            }
+//
+//        }
+//    }
 
 
     @Override
@@ -210,7 +221,7 @@ public class maproutepop extends AppCompatActivity implements OnMapReadyCallback
 
 
                                 if (snapshot.child(userID).child("_status").getValue(String.class).equals("driver")) {
-                                    _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("_driverloc").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
+                                    _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("driverloc").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
                                                     .getUid()).setValue(merk)
 
                                             .addOnCompleteListener
@@ -230,7 +241,7 @@ public class maproutepop extends AppCompatActivity implements OnMapReadyCallback
                                 }
 
                                 else if (snapshot.child(userID).child("_status").getValue(String.class).equals("rider")) {
-                                    _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("_riderloc").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
+                                    _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("riderloc").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
                                                     .getUid()).setValue(merk)
                                             .addOnCompleteListener
                                                     (task1 -> {

@@ -9,18 +9,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
 
@@ -28,6 +32,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
     private ArrayList<Requestitem> list2;
     final RequestAdapter.OnItemClickListener ac;
     private int pos;
+    private final FirebaseDatabase _database = FirebaseDatabase.getInstance("https://full-ride-59aee-default-rtdb.firebaseio.com/");
+    RecyclerView acted;
+    RecyclerView.Adapter adapter;
+    ArrayList<RequestAccepted> requestitemsaccted;
+//    View parent; // Activity method
 
     public RequestAdapter(ArrayList<Requestitem> l, RequestAdapter.OnItemClickListener listen){
         list2 = l;
@@ -51,7 +60,6 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
     @Override
     public void onBindViewHolder(@NonNull viewH holder, int position) {
 
-        pos = position;
         FirebaseDatabase.getInstance().getReference().child("Requests")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -63,6 +71,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
                             holder.major.setText(list2.get(position).get_major());
                             holder.bindData(list2.get(position));
 
+                            pos = position;
                         }
 
                     }
@@ -96,13 +105,37 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
             major = itemView.findViewById(R.id.amajor);
             ace = itemView.findViewById(R.id.bacc);
             deny = itemView.findViewById(R.id.bcanc);
-            c = itemView.findViewById(R.id.cvactiv);
+
+
+            String rideridd =  list2.get(pos).getRiderid();
 
             ace.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    FirebaseDatabase.getInstance().getReference("Requests").child(rideridd).addValueEventListener(new ValueEventListener() {
 
-                    list2.get(pos).setActedon(true);
+                        @Override
+
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                            RequestAccepted acepted = new RequestAccepted(name.getText().toString(), major.getText().toString(), date.getText().toString(), rideridd, userID, true);
+                            _database.getReferenceFromUrl("https://full-ride-59aee-default-rtdb.firebaseio.com/").child("RequestsAccepted").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())
+                                    .getUid()).setValue(acepted);
+
+                            snapshot.getRef().removeValue();
+
+                        }
+
+                        @Override
+
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+
+                    });
+                    // create new item request acted on in firebase with this data then make it show in ride history
 
                 }
             });
@@ -110,7 +143,21 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.viewH>{
             deny.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    list2.remove(list2.get(pos-1));
+                    FirebaseDatabase.getInstance().getReference("Requests").child(rideridd).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            snapshot.getRef().removeValue();
+                        }
+
+                        @Override
+
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+
+                    });
                 }
             });
         }

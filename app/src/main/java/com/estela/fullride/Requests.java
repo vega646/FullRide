@@ -26,14 +26,10 @@ import java.util.Objects;
 
 public class Requests extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    RecyclerView acted, unseen;
+    RecyclerView  unseen, acted;
     RecyclerView.Adapter adapter, adapter2;
-    ArrayList<Requestitem> requestitems;
-    ArrayList<Requestitem> requestitemsaccted;
+    ArrayList<Requestitem> requestitems ;
+    ArrayList<RequestAccepted>requestitemsaccted;
 
 
     public Requests() {
@@ -49,20 +45,11 @@ public class Requests extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         unseen = getView().findViewById(R.id.recunseen);
-        acted  = getView().findViewById(R.id.reqacted);
 
         unseen.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        acted.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         requestitems = new ArrayList<>();
-        requestitemsaccted = new ArrayList<>();
 
-        adapter2 = new RequestAdapter(requestitemsaccted, new RequestAdapter.OnItemClickListener() {
-            @Override
-            public void OnItemClick(Requestitem ev) {
-                showselected(new Profile(ev.getRiderid()));
-            }
-        });
 
         adapter = new RequestAdapter(requestitems, new RequestAdapter.OnItemClickListener() {
             @Override
@@ -70,11 +57,71 @@ public class Requests extends Fragment {
                 showselected(new Profile(ev.getRiderid()));
             }
         });
-        acted.setAdapter(adapter2);
+
         unseen.setAdapter(adapter);
 
         createrequest();
+
+        acted  =  getView().findViewById(R.id.reqacted);
+
+        acted.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        requestitemsaccted = new ArrayList<>();
+
+
+        adapter2 = new RequestAccepterAdapter(requestitemsaccted, new RequestAccepterAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(RequestAccepted ev) {
+
+            }
+        });
+
+        acted.setAdapter(adapter2);
+
+
+        createrequest2();
     }
+
+    private void createrequest2() { DatabaseReference userefdata = FirebaseDatabase.getInstance().getReference().child("RequestsAccepted");
+
+        userefdata.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                for (DataSnapshot snap : snapshot.getChildren()) {
+
+                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    String drivid = snap.child("driverid").getValue(String.class);
+
+                    if (Objects.equals(drivid, userID)){
+
+                        RequestAccepted evt = new RequestAccepted(snap.child("_name").getValue(String.class),
+                                snap.child("_major").getValue(String.class),
+                                snap.child("time").getValue(String.class),
+                                snap.child("riderid").getValue(String.class),
+                                snap.child("driverid").getValue(String.class),
+                                false
+                        );
+
+                        requestitemsaccted.add(evt);
+
+
+                    }
+                }
+                adapter2.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });}
+
 
 
     private void createrequest(){
@@ -91,7 +138,6 @@ public class Requests extends Fragment {
                     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                     String drivid = snap.child("driverid").getValue(String.class);
-                    Boolean acted = snap.child("actedon").getValue(Boolean.class);
 
                     if (Objects.equals(drivid, userID)){
 
@@ -102,13 +148,9 @@ public class Requests extends Fragment {
                             snap.child("driverid").getValue(String.class),
                             false
                         );
-                        if(acted == true)
-                        {
-                            requestitemsaccted.add(evt);
-                        }
-                        else {
+
                             requestitems.add(evt);
-                        }
+
 
                     }
                 }

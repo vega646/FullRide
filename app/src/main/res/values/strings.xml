@@ -47,7 +47,11 @@
     <string name="ok">OK</string>
     <string name="lokf">Look for an approximate address</string>
     <string name="sendr">Send Request</string>
-    <string name="reqdate">Please enter the date, time and building you are going to</string>
+    <string name="reqdate">Please enter the date, time and building you are going to.</string>
     <string name="reqnnedac">Requests waiting for action</string>
     <string name="actedon">Requests acted on</string>
+    <string name="sendm">Send Message</string>
+    <string name="inf">The following map shows the user\'s location and Full Sail\'s . You will set your marker holding your finger on your starting point. If you make a mistake, click on the original marker to make it disappear and set a new one! For safety, starting point should be set as an approximate location, not your actual address. Additionally, when clicking on a marker, you will have the option to get directions to its location.</string>
+    <string name="inf2">The following map shows a series of markers. Each marker represents the departing location of the user and will take you to their profile when being clicked.</string>
+    <string name="ridd">Ride History</string>
 </resources>

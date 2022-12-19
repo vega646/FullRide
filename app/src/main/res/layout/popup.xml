@@ -23,20 +23,6 @@
         app:layout_constraintVertical_bias="0.121" />
 
     <CheckedTextView
-        android:id="@+id/checkedTextView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/alata"
-        android:text="@string/sun"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkedTextView5"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <CheckedTextView
         android:id="@+id/checkedTextView2"
         android:layout_width="wrap_content"
 
@@ -355,14 +341,24 @@
         android:id="@+id/checkedTextView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/alata"
         android:text="@string/sat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkedTextView6"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintEnd_toStartOf="@+id/s1"
+        app:layout_constraintTop_toBottomOf="@+id/checkedTextView6" />
+
+    <CheckedTextView
+        android:id="@+id/checkedTextView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="28dp"
+
+        android:fontFamily="@font/alata"
+        android:text="@string/sun"
+        app:layout_constraintEnd_toStartOf="@+id/sn1"
+        app:layout_constraintTop_toBottomOf="@+id/checkedTextView5" />
 
     <CheckedTextView
         android:id="@+id/checkedTextView"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reqlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Requests">
@@ -10,33 +11,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/alata"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:text="@string/reqnnedac" />
+        android:text="@string/reqnnedac"
+        android:textColor="@color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recunseen"
         android:layout_width="match_parent"
-android:layout_marginLeft="15dp"
         android:layout_height="299dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="50dp" />
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="360dp"
-    android:layout_marginLeft="15dp"
-    android:text="@string/actedon"
-    android:fontFamily="@font/alata"
-    android:textColor="@color/black"
 
-    />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="360dp"
+        android:fontFamily="@font/alata"
+        android:text="@string/actedon"
+        android:textColor="@color/black"
+
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reqacted"
-        android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
+        android:layout_marginEnd="15dp"
         android:layout_height="251dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="400dp" />
 
 </FrameLayout>
